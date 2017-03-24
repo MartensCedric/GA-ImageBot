@@ -13,7 +13,7 @@ import java.util.Random;
  */
 public class Image implements Disposable
 {
-    private final float MUTATION = 0.05f;
+    public final float MUTATION = 0.05f;
 
     private Gdx2DPixmap pixmap;
     private Texture texture;
