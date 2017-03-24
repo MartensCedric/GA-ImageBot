@@ -26,8 +26,8 @@ public class ImageBot extends ApplicationAdapter {
 		originalImage = new Image((Texture) assetManager.get("original.png"));
 		pop = new ArrayList<>();
 
-		for(int i = 0; i < 4; i++)
-			pop.add(new Image(400, 400));
+		for(int i = 0; i < 10000; i++)
+			pop.add(new Image(4, 4));
 
 	}
 
@@ -37,11 +37,8 @@ public class ImageBot extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		doGeneration();
 		batch.begin();
-		batch.draw(originalImage.getTexture(), 0, 0);
-		batch.draw(pop.get(0).getTexture(), 400, 0, 200, 200);
-		batch.draw(pop.get(1).getTexture(), 400, 200, 200, 200);
-		batch.draw(pop.get(2).getTexture(), 600, 0, 200, 200);
-		batch.draw(pop.get(3).getTexture(), 600, 200, 200, 200);
+		batch.draw(originalImage.getTexture(), 0, 0, 400, 400);
+		batch.draw(pop.get(0).getTexture(), 400, 0, 400, 400);
 		batch.end();
 	}
 

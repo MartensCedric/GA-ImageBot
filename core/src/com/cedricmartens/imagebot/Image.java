@@ -47,24 +47,27 @@ public class Image implements Disposable
 
                 Color c = new Color(image.getPixmap().getPixel(i, j));
 
-                r += c.r;
-                g += c.g;
-                b += c.b;
+                c.r += r;
+                c.g += g;
+                c.b += b;
 
-                r = r < 0 ? 0 : r;
-                g = g < 0 ? 0 : g;
-                b = b < 0 ? 0 : b;
+                c.r = c.r < 0 ? 0 : c.r;
+                c.g = c.g < 0 ? 0 : c.g;
+                c.b = c.b < 0 ? 0 : c.b;
 
-                r = r > 1 ? 0 : r;
-                g = g > 1 ? 0 : g;
-                b = b > 1 ? 0 : b;
+                c.r = c.r > 1 ? 0 : c.r;
+                c.g = c.g > 1 ? 0 : c.g;
+                c.b = c.b > 1 ? 0 : c.b;
 
 
-                pixmap.setPixel(i, j, Color.rgba8888(r, g, b, 1f));
+
+
+
+                pixmap.setPixel(i, j, Color.rgba8888(c));
             }
         }
 
-        image.dispose();
+        //image.dispose();
     }
 
     public Image(int w, int h)
@@ -98,7 +101,7 @@ public class Image implements Disposable
                 d += Math.abs(c1.b - c2.b);
             }
         }
-        return d;
+        return d/(image.texture.getWidth() * image.texture.getHeight()*3);
     }
 
     public Gdx2DPixmap getPixmap() {
