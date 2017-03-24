@@ -63,6 +63,8 @@ public class Image implements Disposable
                 pixmap.setPixel(i, j, Color.rgba8888(r, g, b, 1f));
             }
         }
+
+        image.dispose();
     }
 
     public Image(int w, int h)
