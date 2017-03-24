@@ -47,15 +47,15 @@ public class ImageBot extends ApplicationAdapter {
 	}
 
 	private void doGeneration() {
-		int f = getBestFitnessImage();
+		Image im = getBestFitnessImage();
 
 		for (int i = 0; i < pop.size(); i++) {
-			pop.set(i, new Image(pop.get(f)));
+			pop.set(i, new Image(im));
 		}
 
 	}
 
-	private int getBestFitnessImage()
+	private Image getBestFitnessImage()
 	{
 		int smallest = -1;
 		float smallestDelta = Float.MAX_VALUE;
@@ -75,10 +75,12 @@ public class ImageBot extends ApplicationAdapter {
 		{
 			bestImage = pop.get(smallest);
 			allTimeBest = bestImage.getFitness(originalImage);
-			System.out.println("New high " + allTimeBest);
+			System.out.println("New high " + (100.0f - allTimeBest) + "%");
+		}else{
+			return bestImage;
 		}
 
-		return smallest;
+		return pop.get(smallest);
 	}
 	
 	@Override
