@@ -8,9 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.sun.org.apache.bcel.internal.generic.POP;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,14 +40,16 @@ public class ImageBot extends ApplicationAdapter {
 		for(int i = 0; i < POPULATION; i++)
 			pop.add(new Image(texture.getWidth(), texture.getHeight()));
 
-		File f = new File("results.ibr");
+		File f = new File("../../../results.ibr");
 		try {
-			FileWriter writer = new FileWriter(f);
-			writer.write("original.png,"+ texture.getWidth()+"," + texture.getHeight() + "," + POPULATION + ";");
+			FileOutputStream is = new FileOutputStream(f);
+			OutputStreamWriter osw = new OutputStreamWriter(is);
+			Writer w = new BufferedWriter(osw);
+			w.write("original.png,"+ texture.getWidth()+"," + texture.getHeight() + "," + POPULATION + ";");
+			w.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override
@@ -71,7 +71,6 @@ public class ImageBot extends ApplicationAdapter {
 		for (int i = 0; i < pop.size(); i++) {
 			pop.set(i, new Image(im));
 		}
-
 	}
 
 	private Image getBestFitnessImage()
@@ -97,12 +96,28 @@ public class ImageBot extends ApplicationAdapter {
 			long delta = System.currentTimeMillis() - lastBestTime;
 			lastBestTime = System.currentTimeMillis();
 			System.out.println("New best fitness on generation " + generation + " with " + (1.0f - allTimeBest)*100 + "% " +
-			"image ressemblence. It took " + delta + "ms since last best");
+			"image ressemblance. It took " + delta + "ms since last best");
+			writeBestFitness(generation, 1.0f - allTimeBest, System.currentTimeMillis());
 		}else{
 			return bestImage;
 		}
 
 		return pop.get(smallest);
+	}
+
+
+	private void writeBestFitness(int gen, float fitness, long time)
+	{
+		File f = new File("../../../results.ibr");
+		try {
+			FileOutputStream is = new FileOutputStream(f, true);
+			OutputStreamWriter osw = new OutputStreamWriter(is);
+			Writer w = new BufferedWriter(osw);
+			w.write(gen + ","+ fitness + "," + time);
+			w.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
