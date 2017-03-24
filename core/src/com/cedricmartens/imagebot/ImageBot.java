@@ -26,7 +26,7 @@ public class ImageBot extends ApplicationAdapter {
 		originalImage = new Image((Texture) assetManager.get("original.png"));
 		pop = new ArrayList<>();
 
-		for(int i = 0; i < 10; i++)
+		for(int i = 0; i < 4; i++)
 			pop.add(new Image(400, 400));
 
 	}
@@ -45,15 +45,11 @@ public class ImageBot extends ApplicationAdapter {
 		batch.end();
 	}
 
-	private void doGeneration()
-	{
+	private void doGeneration() {
 		int f = getBestFitnessImage();
-		for(int i = 0; i < pop.size(); i++)
-		{
+		for (int i = 0; i < pop.size(); i++) {
 			pop.set(i, new Image(pop.get(f)));
 		}
-
-
 	}
 
 	private int getBestFitnessImage()
@@ -71,7 +67,6 @@ public class ImageBot extends ApplicationAdapter {
 			}
 		}
 		System.out.println(smallestDelta);
-		System.out.println(smallest);
 		return smallest;
 	}
 	

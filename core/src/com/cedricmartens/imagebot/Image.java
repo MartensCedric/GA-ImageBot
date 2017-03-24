@@ -25,7 +25,8 @@ public class Image implements Disposable
 
     public Image(Image image)
     {
-        this.pixmap = image.getPixmap();
+        this.pixmap = new Gdx2DPixmap(image.getPixmap().getWidth(),
+                                        image.getPixmap().getHeight(), Gdx2DPixmap.GDX2D_FORMAT_RGBA8888);
 
         Random rand = new Random();
         for(int i = 0; i < pixmap.getWidth(); i++)
@@ -44,11 +45,19 @@ public class Image implements Disposable
                 if(rand.nextBoolean())
                     b = -b;
 
-                Color c = new Color(pixmap.getPixel(i, j));
+                Color c = new Color(image.getPixmap().getPixel(i, j));
 
                 r += c.r;
                 g += c.g;
                 b += c.b;
+
+                r = r < 0 ? 0 : r;
+                g = g < 0 ? 0 : g;
+                b = b < 0 ? 0 : b;
+
+                r = r > 1 ? 0 : r;
+                g = g > 1 ? 0 : g;
+                b = b > 1 ? 0 : b;
 
 
                 pixmap.setPixel(i, j, Color.rgba8888(r, g, b, 1f));
