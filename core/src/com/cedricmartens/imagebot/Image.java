@@ -14,7 +14,6 @@ import java.util.Random;
 public class Image implements Disposable
 {
     private final float MUTATION = 0.05f;
-    private static Random rand = new Random();
 
     private Gdx2DPixmap pixmap;
     private Texture texture;
@@ -24,14 +23,43 @@ public class Image implements Disposable
         this.texture = texture;
     }
 
-    public Image(Gdx2DPixmap pixmap)
+    public Image(Image image)
     {
-        this.pixmap = pixmap;
+        this.pixmap = image.getPixmap();
+
+        Random rand = new Random();
+        for(int i = 0; i < pixmap.getWidth(); i++)
+        {
+            for(int j = 0; j < pixmap.getHeight(); j++)
+            {
+                float r = rand.nextFloat() * MUTATION;
+                if(rand.nextBoolean())
+                    r = -r;
+
+                float g = rand.nextFloat() * MUTATION;
+                if(rand.nextBoolean())
+                    g = -g;
+
+                float b = rand.nextFloat() * MUTATION;
+                if(rand.nextBoolean())
+                    b = -b;
+
+                Color c = new Color(pixmap.getPixel(i, j));
+
+                r += c.r;
+                g += c.g;
+                b += c.b;
+
+
+                pixmap.setPixel(i, j, Color.rgba8888(r, g, b, 1f));
+            }
+        }
     }
 
     public Image(int w, int h)
     {
         Gdx2DPixmap pix = new Gdx2DPixmap(w, h, Gdx2DPixmap.GDX2D_FORMAT_RGBA8888);
+        Random rand = new Random();
         for(int i = 0; i < w; i++)
         {
             for(int j = 0; j < h; j++)
