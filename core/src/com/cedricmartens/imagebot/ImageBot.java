@@ -29,7 +29,7 @@ public class ImageBot extends ApplicationAdapter {
 		originalImage = new Image(texture);
 		pop = new ArrayList<>();
 		allTimeBest = Float.MAX_VALUE;
-		for(int i = 0; i < 10000; i++)
+		for(int i = 0; i < 100; i++)
 			pop.add(new Image(texture.getWidth(), texture.getHeight()));
 
 	}
@@ -75,7 +75,7 @@ public class ImageBot extends ApplicationAdapter {
 		{
 			bestImage = pop.get(smallest);
 			allTimeBest = bestImage.getFitness(originalImage);
-			System.out.println("New high " + (100.0f - allTimeBest) + "%");
+			System.out.println("New high " + (1.0f - allTimeBest)*100 + "%");
 		}else{
 			return bestImage;
 		}
