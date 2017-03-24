@@ -21,7 +21,7 @@ public class ImageBot extends ApplicationAdapter {
 	private List<Image> pop;
 	private int generation;
 	private long lastBestTime;
-	private final int POPULATION = 10000;
+	private final int POPULATION = 1000;
 
 	@Override
 	public void create () {
@@ -29,6 +29,7 @@ public class ImageBot extends ApplicationAdapter {
 		assetManager = new AssetManager();
 		generation = 0;
 		lastBestTime = System.currentTimeMillis();
+
 
 		assetManager.load("original.png", Texture.class);
 		assetManager.finishLoading();
