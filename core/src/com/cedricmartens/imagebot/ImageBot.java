@@ -21,7 +21,7 @@ public class ImageBot extends ApplicationAdapter {
 	private List<Image> pop;
 	private int generation;
 	private long lastBestTime;
-	private final int POPULATION = 1000;
+	private final int POPULATION = 10000;
 
 	@Override
 	public void create () {
@@ -70,8 +70,12 @@ public class ImageBot extends ApplicationAdapter {
 		Image im = getBestFitnessImage();
 
 		for (int i = 0; i < pop.size(); i++) {
+			if(im != pop.get(i))
+				pop.get(i).dispose();
 			pop.set(i, new Image(im));
 		}
+
+
 	}
 
 	private Image getBestFitnessImage()
